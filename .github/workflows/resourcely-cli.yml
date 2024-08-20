@@ -1,4 +1,4 @@
-name: Plan and Apply Terraform
+name: Test Resourcely-CLI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  # Mock TF plan
+  # Mock TF plan that will be fed to Resourcely-CLI
   TF_PLAN: >
     {
       "resource_changes": [
@@ -146,8 +146,8 @@ env:
 
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  write-plan:
+    name: 'Write Plan File'
     runs-on: ubuntu-latest
     environment: production
 
@@ -156,13 +156,7 @@ jobs:
         shell: bash
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-
-      - name: Save JSON to a file
+      - name: Save Plan JSON to a file
         uses: fishcharlie/CmdToFile@v1.0.0
         with:
           data: ${{ env.TF_PLAN }}
@@ -175,7 +169,7 @@ jobs:
           path: plan.json
 
   resourcely-ci:
-    needs: terraform
+    needs: write-plan
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
