@@ -1,0 +1,42 @@
+# IDE
+.idea/
+.vscode/
+.run-configurations/
+
+# Automatically generated
+.docker
+build/
+proto-gen/
+_protos
+coverage.out
+*.zip
+# Files named mock_*.go are automatically created and deleted by the mocks generator script in Makefile
+mock_*
+mocks/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Certs
+*.key
+*.pem
+
+# Ignore local env files except for .env and sample.env
+env/*.env
+!env/.env
+!env/sample.env
